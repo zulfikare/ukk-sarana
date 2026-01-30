@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ config('app.name', 'Laravel') }} - Edit Pengaduan</title>
+    <link href="{{ asset('sbadmin2/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="{{ asset('sbadmin2/css/sb-admin-2.min.css') }}" rel="stylesheet">
+</head>
+<body id="page-top">
+    <div id="wrapper">
+        @include('admin.components.sidebar')
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                @include('components.topbar')
+                <div class="container-fluid">
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Edit Pengaduan</h1>
+                        <a href="{{ route('admin.pengaduan.index') }}" class="btn btn-sm btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Kembali
+                        </a>
+                    </div>
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Terjadi Kesalahan!</strong>
+                            <ul class="mb-0 mt-2">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">
+                                        <i class="fas fa-edit"></i> Form Edit Pengaduan
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <form method="POST" action="{{ route('admin.pengaduan.update', $pengaduan->id_aspirasi) }}">
+                                        @csrf
+                                        @method('PATCH')
+
+                                        <div class="form-group mb-3">
+                                            <label for="id_aspirasi" class="form-label"><strong>ID Pengaduan</strong></label>
+                                            <input type="text" class="form-control" id="id_aspirasi" value="{{ $pengaduan->id_aspirasi }}" disabled>
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label for="id_kategori" class="form-label"><strong>Kategori</strong></label>
+                                            <select class="form-control @error('id_kategori') is-invalid @enderror" id="id_kategori" name="id_kategori" required>
+                                                <option value="">-- Pilih Kategori --</option>
+                                                @foreach($kategoris as $kategori)
+                                                    <option value="{{ $kategori->id_kategori }}" 
+                                                        @selected($pengaduan->id_kategori == $kategori->id_kategori)>
+                                                        {{ $kategori->ket_kategori }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            @error('id_kategori')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label for="status" class="form-label"><strong>Status</strong></label>
+                                            <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" required>
+                                                <option value="Menunggu" @selected($pengaduan->status == 'Menunggu')>Menunggu</option>
+                                                <option value="Proses" @selected($pengaduan->status == 'Proses')>Proses</option>
+                                                <option value="Selesai" @selected($pengaduan->status == 'Selesai')>Selesai</option>
+                                            </select>
+                                            @error('status')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label for="feedback" class="form-label"><strong>Feedback/Catatan</strong></label>
+                                            <textarea class="form-control @error('feedback') is-invalid @enderror" 
+                                                      id="feedback" name="feedback" rows="5" 
+                                                      placeholder="Berikan feedback atau catatan untuk pengaduan ini...">{{ old('feedback', $pengaduan->feedback) }}</textarea>
+                                            <small class="form-text text-muted d-block mt-2">Feedback akan ditampilkan kepada pelapor</small>
+                                            @error('feedback')
+                                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-save"></i> Simpan
+                                            </button>
+                                            <a href="{{ route('admin.pengaduan.index') }}" class="btn btn-secondary">
+                                                <i class="fas fa-times"></i> Batal
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="card shadow">
+                                <div class="card-header py-3 bg-info">
+                                    <h6 class="m-0 font-weight-bold text-white">
+                                        <i class="fas fa-info-circle"></i> Informasi
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <strong>ID Pengaduan:</strong>
+                                        <p><span class="badge badge-secondary">{{ $pengaduan->id_aspirasi }}</span></p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <strong>Kategori:</strong>
+                                        <p><span class="badge badge-info">{{ $pengaduan->kategori->ket_kategori }}</span></p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <strong>Status Saat Ini:</strong>
+                                        <p>
+                                            @if($pengaduan->status === 'Menunggu')
+                                                <span class="badge badge-warning">Menunggu</span>
+                                            @elseif($pengaduan->status === 'Proses')
+                                                <span class="badge badge-info">Proses</span>
+                                            @else
+                                                <span class="badge badge-success">Selesai</span>
+                                            @endif
+                                        </p>
+                                    </div>
+                                    <hr>
+                                    <div class="mb-3">
+                                        <strong>Tanggal Dibuat:</strong>
+                                        <p><small>{{ $pengaduan->created_at->format('d/m/Y H:i:s') }}</small></p>
+                                    </div>
+                                    <div class="mb-3">
+                                        <strong>Terakhir Diperbarui:</strong>
+                                        <p><small>{{ $pengaduan->updated_at->format('d/m/Y H:i:s') }}</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @include('components.footer')
+        </div>
+    </div>
+
+    <a class="scroll-to-top rounded" href="#page-top"><i class="fas fa-angle-up"></i></a>
+
+    <script src="{{ asset('sbadmin2/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('sbadmin2/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('sbadmin2/js/sb-admin-2.min.js') }}"></script>
+</body>
+</html>
