@@ -46,11 +46,12 @@
                                     <thead class="table-light">
                                         <tr>
                                             <th style="width: 3%">No</th>
-                                            <th style="width: 12%">NIS</th>
+                                            <th style="width: 10%">NIS</th>
+                                            <th style="width: 15%">Username</th>
                                             <th style="width: 20%">Nama</th>
-                                            <th style="width: 18%">Kelas</th>
-                                            <th style="width: 20%">Keterangan</th>
-                                            <th style="width: 17%">Tanggal Dibuat</th>
+                                            <th style="width: 14%">Kelas</th>
+                                            <th style="width: 15%">Keterangan</th>
+                                            <th style="width: 15%">Tanggal Dibuat</th>
                                             <th style="width: 10%" class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -60,6 +61,9 @@
                                                 <td class="text-center font-weight-bold">{{ ($siswas->currentPage() - 1) * $siswas->perPage() + $key + 1 }}</td>
                                                 <td>
                                                     <span class="badge badge-primary">{{ $siswa->nis }}</span>
+                                                </td>
+                                                <td>
+                                                    {{ $siswa->username ?? '-' }}
                                                 </td>
                                                 <td>
                                                     <strong>{{ $siswa->nama ?? '-' }}</strong>
@@ -90,7 +94,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="6" class="text-center text-muted py-4">
+                                                <td colspan="8" class="text-center text-muted py-4">
                                                     <i class="fas fa-inbox"></i> Belum ada data siswa
                                                 </td>
                                             </tr>

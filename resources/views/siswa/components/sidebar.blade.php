@@ -28,7 +28,7 @@
 
     <!-- Nav Item - Input Aspirasi -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('siswa.aspirasi.create') }}">
+        <a class="nav-link" href="{{ route('siswa.aspirasi.index') }}">
             <i class="fas fa-fw fa-pen"></i>
             <span>Input Aspirasi</span></a>
     </li>
@@ -54,7 +54,7 @@
             @csrf
             <button type="submit" class="nav-link" style="background: none; border: none; color: inherit; padding: 0; cursor: pointer;">
                 <i class="fas fa-fw fa-sign-out-alt"></i>
-                <span>Logout</span>
+                <span class="text-white">Keluar</span>
             </button>
         </form>
     </li>

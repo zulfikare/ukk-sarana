@@ -16,7 +16,7 @@ class Kategori extends Model
     protected $primaryKey = 'id_kategori';
     public $incrementing = false;
     protected $keyType = 'int';
-    protected $fillable = ['id_kategori', 'ket_kategori', 'deskripsi'];
+    protected $fillable = ['id_kategori', 'ket_kategori'];
 
     public function getRouteKeyName()
     {

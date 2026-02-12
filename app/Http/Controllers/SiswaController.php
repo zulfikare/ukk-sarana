@@ -21,10 +21,15 @@ class SiswaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nis' => 'required|unique:siswas',
+            'nis' => 'required|digits:10|unique:siswas',
             'nama' => 'required',
             'kelas' => 'required',
             'jurusan' => 'required',
+        ], [
+            'nis.digits' => 'Kolom NIS harus 10 angka.',
+            'nis.unique' => 'NIS ini sudah terdaftar.',
+            'nis.required' => 'NIS wajib diisi.',
+            'password.min' => 'Kolom password minimal 6 karakter.',
         ]);
 
         Siswa::create($request->all());
@@ -44,10 +49,15 @@ class SiswaController extends Controller
     public function update(Request $request, Siswa $siswa)
     {
         $request->validate([
-            'nis' => 'required|unique:siswas,nis,' . $siswa->id,
+            'nis' => 'required|digits:10|unique:siswas,nis,' . $siswa->nis . ',nis',
             'nama' => 'required',
             'kelas' => 'required',
             'jurusan' => 'required',
+        ], [
+            'nis.digits' => 'Kolom NIS harus 10 angka.',
+            'nis.unique' => 'NIS ini sudah terdaftar.',
+            'nis.required' => 'NIS wajib diisi.',
+            'password.min' => 'Kolom password minimal 6 karakter.',
         ]);
 
         $siswa->update($request->all());

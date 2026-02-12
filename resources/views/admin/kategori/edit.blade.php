@@ -49,7 +49,7 @@
                                 @method('PUT')
 
                                 <div class="form-group mb-3">
-                                    <label for="ket_kategori" class="form-label"><strong>Keterangan Kategori</strong></label>
+                                    <label for="ket_kategori" class="form-label"><strong>Kategori</strong></label>
                                     <input type="text" class="form-control @error('ket_kategori') is-invalid @enderror" 
                                            id="ket_kategori" name="ket_kategori" placeholder="Contoh: Sarana, Prasarana" maxlength="30" value="{{ old('ket_kategori', $kategori->ket_kategori) }}" required>
                                     @error('ket_kategori')
@@ -57,14 +57,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="form-group mb-3">
-                                    <label for="deskripsi" class="form-label"><strong>Deskripsi</strong></label>
-                                    <textarea class="form-control @error('deskripsi') is-invalid @enderror" 
-                                              id="deskripsi" name="deskripsi" placeholder="Masukkan deskripsi kategori" rows="4">{{ old('deskripsi', $kategori->deskripsi) }}</textarea>
-                                    @error('deskripsi')
-                                        <div class="invalid-feedback d-block">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <!-- Deskripsi removed -->
 
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-primary">

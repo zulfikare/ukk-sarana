@@ -70,7 +70,7 @@ class PengaduanController extends Controller
             'nis' => 'required|exists:siswas,nis',
             'id_kategori' => 'required|exists:kategoris,id_kategori',
             'keterangan' => 'required',
-            'status' => 'required|in:Menunggu Proses,Selesai',
+            'status' => 'required|in:Menunggu,Proses,Selesai',
         ]);
 
         $pengaduan->update($request->all());

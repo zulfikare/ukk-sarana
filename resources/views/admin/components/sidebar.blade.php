@@ -73,7 +73,7 @@
             @csrf
             <button type="submit" class="nav-link" style="background: none; border: none; color: inherit; padding: 0; cursor: pointer; text-align: left; width: 100%;">
                 <i class="fas fa-fw fa-sign-out-alt"></i>
-                <span>Logout</span>
+                <span class="text-white">Keluar</span>
             </button>
         </form>
     </li>

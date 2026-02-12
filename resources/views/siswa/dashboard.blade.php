@@ -33,7 +33,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard Siswa</h1>
                         <p class="text-sm text-gray-700">
-                            Selamat datang, <strong>NIS: {{ $nis }}</strong>
+                            Selamat datang, <strong>{{ $nama ?? 'Siswa' }}</strong>
                         </p>
                     </div>
 

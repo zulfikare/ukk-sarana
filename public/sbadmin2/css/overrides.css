@@ -1,0 +1,51 @@
+/* Overrides to apply MediumPurple to links and form focus rings
+   without touching 'primary' classes so the sidebar can keep
+   its own color (and be changed independently). */
+:root {
+  --blue: #9370DB; /* keep for components that rely on --blue */
+  --purple: #9370DB;
+}
+
+/* Links and link-like elements (do not target .bg-primary/.text-primary) */
+a,
+.btn-link {
+  color: #9370DB !important;
+}
+a:hover,
+.btn-link:hover {
+  color: #7a4fd1 !important; /* darker on hover */
+}
+
+/* Form controls and focus outlines use MediumPurple tint */
+.form-control:focus,
+.custom-select:focus,
+.custom-file-input:focus ~ .custom-file-label {
+  box-shadow: 0 0 0 .2rem rgba(147,112,219,0.25) !important;
+  border-color: #9370DB !important;
+}
+
+/* Checked form controls (checkbox/radio) use MediumPurple */
+.custom-control-input:checked ~ .custom-control-label::before,
+.custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before {
+  background-color: #9370DB !important;
+  border-color: #9370DB !important;
+}
+
+/* Small UI elements that are safe to change (not primary-specific) */
+.custom-range::-webkit-slider-thumb,
+.custom-range::-moz-range-thumb,
+.custom-range::-ms-thumb {
+  background-color: #9370DB !important;
+}
+
+/* Gradient variant for components that explicitly use bg-gradient-primary
+   are intentionally NOT overridden here so the sidebar can keep/change
+   its color independently. */
+
+/* Fallback for inline styles using the old blue: attempt minimal override
+   but avoid forcing .sidebar elements. */
+*:not(.sidebar) [style*="#4e73df"] {
+  color: #9370DB !important;
+  background-color: #9370DB !important;
+  border-color: #9370DB !important;
+}

@@ -319,101 +319,56 @@
                     </div>
                 @endif
 
-                <!-- Tabs -->
-                <div class="login-tabs">
-                    <button type="button" class="login-tab active" data-tab="admin">
-                        Admin
-                    </button>
-                    <button type="button" class="login-tab" data-tab="siswa">
-                        Siswa
-                    </button>
-                </div>
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
 
-                <!-- Admin Form -->
-                <div class="tab-pane active" id="admin-form">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        <input type="hidden" name="login_type" value="admin">
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-control @error('username') is-invalid @enderror"
+                            name="username" value="{{ old('username') }}"
+                            placeholder="Username" required autocomplete="username">
+                        @error('username')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-                        <div class="form-group">
-                            <label class="form-label">Username</label>
-                            <input type="text" class="form-control @error('username') is-invalid @enderror"
-                                name="username" value="{{ old('username') }}"
-                                placeholder="Username" required autocomplete="username">
-                            @error('username')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Password</label>
-                            <input type="password" class="form-control @error('password') is-invalid @enderror"
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <div class="input-group">
+                            <input type="password" id="password" class="form-control @error('password') is-invalid @enderror"
                                 name="password" placeholder="Password" required autocomplete="current-password">
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary btn-toggle-password" type="button" title="Tampilkan/ Sembunyikan password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
 
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="admin-remember" name="remember">
-                            <label class="form-check-label" for="admin-remember">Ingat saya</label>
-                        </div>
-
-                        <button type="submit" class="btn-login">Login</button>
-                    </form>
-                </div>
-
-                <!-- Siswa Form -->
-                <div class="tab-pane" id="siswa-form">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        <input type="hidden" name="login_type" value="siswa">
-
-                        <div class="form-group">
-                            <label class="form-label">NIS (Nomor Induk Siswa)</label>
-                            <input type="text" class="form-control @error('nis') is-invalid @enderror"
-                                name="nis" value="{{ old('nis') }}"
-                                placeholder="Contoh: 12001" required>
-                            @error('nis')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="siswa-remember" name="remember">
-                            <label class="form-check-label" for="siswa-remember">Ingat saya</label>
-                        </div>
-
-                        <button type="submit" class="btn-login">Login</button>
-                    </form>
-                </div>
+                    <button type="submit" class="btn-login">Login</button>
+                </form>
             </div>
-
-            <!-- Footer -->
-            <div class="login-footer">
-                <a href="#" class="forgot-password">Lupa Password?</a>
-            </div>
-        </div>
-    </div>
 
     <!-- Scripts -->
     <script src="{{ asset('sbadmin2/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
     <script>
-        // Tab switching
-        document.querySelectorAll('.login-tab').forEach(tab => {
-            tab.addEventListener('click', function(e) {
+        // Toggle password visibility on login form
+        $(function(){
+            $(document).on('click', '.btn-toggle-password', function(e){
                 e.preventDefault();
-                const tabName = this.getAttribute('data-tab');
-
-                // Remove active class
-                document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
-
-                // Add active class
-                this.classList.add('active');
-                document.getElementById(tabName + '-form').classList.add('active');
+                var $btn = $(this);
+                var $input = $btn.closest('.input-group').find('input');
+                if ($input.attr('type') === 'password') {
+                    $input.attr('type', 'text');
+                    $btn.find('i').removeClass('fa-eye').addClass('fa-eye-slash');
+                } else {
+                    $input.attr('type', 'password');
+                    $btn.find('i').removeClass('fa-eye-slash').addClass('fa-eye');
+                }
             });
         });
     </script>

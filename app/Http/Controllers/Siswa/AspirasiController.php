@@ -5,10 +5,25 @@ namespace App\Http\Controllers\Siswa;
 use App\Models\Pengaduan;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 
 class AspirasiController extends Controller
 {
+    public function index()
+    {
+        $nis = session('nis');
+        
+        // Fetch aspirasi with status Menunggu or Proses
+        $pengaduans = Pengaduan::where('nis', $nis)
+                              ->whereIn('status', ['Menunggu', 'Proses'])
+                              ->with('kategori')
+                              ->orderBy('created_at', 'desc')
+                              ->paginate(10);
+        
+        return view('siswa.aspirasi.index', compact('pengaduans'));
+    }
+
     public function create()
     {
         $kategoris = Kategori::all();
@@ -43,7 +58,7 @@ class AspirasiController extends Controller
 
         Pengaduan::create($data);
 
-        return redirect()->route('siswa.riwayat.index')->with('success', 'Aspirasi berhasil disampaikan!');
+        return redirect()->route('siswa.aspirasi.index')->with('success', 'Aspirasi berhasil disampaikan!');
     }
 
     public function edit(Pengaduan $pengaduan)
@@ -85,7 +100,7 @@ class AspirasiController extends Controller
         if ($request->hasFile('gambar')) {
             // Delete old image if exists
             if ($pengaduan->gambar) {
-                \Storage::disk('public')->delete('aspirasi/' . $pengaduan->gambar);
+                Storage::disk('public')->delete('aspirasi/' . $pengaduan->gambar);
             }
 
             $file = $request->file('gambar');
@@ -108,13 +123,14 @@ class AspirasiController extends Controller
             abort(403, 'Unauthorized');
         }
 
-        // Delete image if exists
+        // Delete associated image if exists
         if ($pengaduan->gambar) {
-            \Storage::disk('public')->delete('aspirasi/' . $pengaduan->gambar);
+            Storage::disk('public')->delete('aspirasi/' . $pengaduan->gambar);
         }
 
+        // Hard delete the record
         $pengaduan->delete();
 
-        return redirect()->route('siswa.riwayat.index')->with('success', 'Aspirasi berhasil dihapus!');
+        return redirect()->route('siswa.aspirasi.index')->with('success', 'Aspirasi berhasil dihapus!');
     }
 }

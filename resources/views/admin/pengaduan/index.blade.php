@@ -38,20 +38,7 @@
                         <div class="card-body">
                             <form method="GET" action="{{ route('admin.pengaduan.index') }}" class="row g-3 align-items-end mb-4">
                                 <div class="col-md-3">
-                                    <label for="tanggal" class="form-label small">Tanggal</label>
-                                    <input type="date" name="tanggal" id="tanggal" class="form-control form-control-sm" value="{{ request('tanggal') }}" placeholder="dd/mm/yyyy">
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="status" class="form-label small">Pilih Status</label>
-                                    <select name="status" id="status" class="form-control form-control-sm">
-                                        <option value="">Semua Status</option>
-                                        <option value="Menunggu" @selected(request('status') == 'Menunggu')>Menunggu</option>
-                                        <option value="Proses" @selected(request('status') == 'Proses')>Proses</option>
-                                        <option value="Selesai" @selected(request('status') == 'Selesai')>Selesai</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3">
-                                    <label for="nis" class="form-label small">Pilih Siswa</label>
+                                    <label for="nis" class="form-label small"><strong>Siswa</strong></label>
                                     <select name="nis" id="nis" class="form-control form-control-sm">
                                         <option value="">Semua Siswa</option>
                                         @foreach($siswas as $siswa)
@@ -60,9 +47,10 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                </div> 
-                                <div class="col-md-3 ">
-                                    <label for="id_kategori" class="form-label small">Pilih Kategori</label>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <label for="id_kategori" class="form-label small"><strong>Kategori</strong></label>
                                     <select name="id_kategori" id="id_kategori" class="form-control form-control-sm">
                                         <option value="">Semua Kategori</option>
                                         @foreach($kategoris as $kategori)
@@ -72,15 +60,45 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-12 d-flex gap-2 mt-4 ">
-                                    <button type="submit" class="btn btn-primary btn" style="margin-right: 10px;">
-                                        <i class="fas fa-filter"></i> Terapkan Filter
+
+                                <div class="col-md-2">
+                                    <label for="tanggal" class="form-label small"><strong>Tanggal</strong></label>
+                                    <input type="date" name="tanggal" id="tanggal" class="form-control form-control-sm" value="{{ request('tanggal') }}">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="bulan" class="form-label small"><strong>Bulan</strong></label>
+                                    @php
+                                        \Carbon\Carbon::setLocale('id');
+                                        $start = \Carbon\Carbon::now()->startOfYear();
+                                    @endphp
+                                    <select name="bulan" id="bulan" class="form-control form-control-sm">
+                                        <option value="">-- Pilih Bulan --</option>
+                                        @for ($i = 0; $i < 12; $i++)
+                                            @php $m = $start->copy()->addMonths($i); @endphp
+                                            <option value="{{ $m->format('Y-m') }}" @selected(request('bulan') == $m->format('Y-m'))>
+                                                {{ ucfirst($m->monthName) }}
+                                            </option>
+                                        @endfor
+                                    </select>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label for="status" class="form-label small"><strong>Status</strong></label>
+                                    <select name="status" id="status" class="form-control form-control-sm">
+                                        <option value="">Semua Status</option>
+                                        <option value="Menunggu" @selected(request('status') == 'Menunggu')>Menunggu</option>
+                                        <option value="Proses" @selected(request('status') == 'Proses')>Proses</option>
+                                        <option value="Selesai" @selected(request('status') == 'Selesai')>Selesai</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-12 d-flex gap-2 mt-3">
+                                    <button type="submit" class="btn btn-primary btn-sm mx-3">
+                                        <i class="fas fa-search"></i> Cari
                                     </button>
-                                    
-                                    <a href="{{ route('admin.pengaduan.index') }}" class="btn btn-secondary btn-sm" >
-                                        <div style="transform: translateY(4px);">
-                                        <i class="fas fa-redo" ></i> Reset
-                                        </div>
+                                    <a href="{{ route('admin.pengaduan.index') }}" class="btn btn-secondary btn-sm">
+                                        <i class="fas fa-redo"></i> Reset
                                     </a>
                                 </div>
                             </form>

@@ -16,8 +16,8 @@ class Siswa extends Model
 {
     protected $primaryKey = 'nis';
     public $incrementing = false;
-    protected $keyType = 'int';
-    protected $fillable = ['nis', 'nama', 'kelas', 'keterangan'];
+    protected $keyType = 'string';
+    protected $fillable = ['nis', 'nama', 'kelas', 'keterangan', 'username', 'password'];
 
     public function getRouteKeyName()
     {

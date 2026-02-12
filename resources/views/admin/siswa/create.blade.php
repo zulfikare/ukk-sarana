@@ -50,8 +50,8 @@
                                 <div class="form-group mb-3">
                                     <label for="nis" class="form-label"><strong>NIS (Nomor Induk Siswa)</strong></label>
                                     <input type="text" class="form-control @error('nis') is-invalid @enderror" 
-                                           id="nis" name="nis" placeholder="Contoh: 12001" value="{{ old('nis') }}" required>
-                                    <small class="form-text text-muted d-block mt-1">Nomor induk siswa harus unik</small>
+                                           id="nis" name="nis" placeholder="Contoh: 1200100001" value="{{ old('nis') }}" required>
+                                  
                                     @error('nis')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
@@ -77,10 +77,39 @@
 
                                 <div class="form-group mb-3">
                                     <label for="keterangan" class="form-label"><strong>Keterangan</strong></label>
-                                    <input type="text" class="form-control @error('keterangan') is-invalid @enderror" 
-                                           id="keterangan" name="keterangan" placeholder="Contoh: Aktif" maxlength="10" value="{{ old('keterangan') }}" required>
-                                    <small class="form-text text-muted d-block mt-1">Maksimal 10 karakter</small>
+                                    <select class="form-control @error('keterangan') is-invalid @enderror" 
+                                            id="keterangan" name="keterangan" required>
+                                        <option value="">-- Pilih Status --</option>
+                                        <option value="Aktif" {{ old('keterangan', 'Aktif') === 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                                        <option value="Nonaktif" {{ old('keterangan', 'Aktif') === 'Nonaktif' ? 'selected' : '' }}>Nonaktif</option>
+                                    </select>
                                     @error('keterangan')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="username" class="form-label"><strong>Username</strong></label>
+                                    <input type="text" class="form-control @error('username') is-invalid @enderror"
+                                           id="username" name="username" placeholder="Username untuk login" value="{{ old('username') }}" required>
+                                    @error('username')
+                                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="password" class="form-label"><strong>Password</strong></label>
+                                    <div class="input-group">
+                                        <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                               id="password" name="password" placeholder="Password (kosongkan jika belum ingin diset)">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary btn-toggle-password" type="button" title="Tampilkan/ Sembunyikan password">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <small class="form-text text-muted d-block mt-1">Kosongkan jika tidak ingin menyetel password sekarang.</small>
+                                    @error('password')
                                         <div class="invalid-feedback d-block">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -108,5 +137,22 @@
     <script src="{{ asset('sbadmin2/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('sbadmin2/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('sbadmin2/js/sb-admin-2.min.js') }}"></script>
+    <script>
+        // Toggle password visibility for inputs inside input-group with button.btn-toggle-password
+        $(function(){
+            $(document).on('click', '.btn-toggle-password', function(e){
+                e.preventDefault();
+                var $btn = $(this);
+                var $input = $btn.closest('.input-group').find('input');
+                if ($input.attr('type') === 'password') {
+                    $input.attr('type', 'text');
+                    $btn.find('i').removeClass('fa-eye').addClass('fa-eye-slash');
+                } else {
+                    $input.attr('type', 'password');
+                    $btn.find('i').removeClass('fa-eye-slash').addClass('fa-eye');
+                }
+            });
+        });
+    </script>
 </body>
 </html>

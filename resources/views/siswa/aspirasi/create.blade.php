@@ -94,7 +94,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fas fa-paper-plane"></i> Kirim Aspirasi
                                     </button>
-                                    <a href="{{ route('siswa.dashboard') }}" class="btn btn-secondary">
+                                    <a href="{{ route('siswa.aspirasi.index') }}" class="btn btn-secondary">
                                         <i class="fas fa-times"></i> Batal
                                     </a>
                                 </div>

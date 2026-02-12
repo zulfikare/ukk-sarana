@@ -28,10 +28,9 @@ class KategoriController extends Controller
     {
         $request->validate([
             'ket_kategori' => 'required|string|max:30',
-            'deskripsi' => 'nullable|string',
         ]);
 
-        Kategori::create($request->only(['ket_kategori', 'deskripsi']));
+        Kategori::create($request->only(['ket_kategori']));
 
         return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil ditambahkan');
     }
@@ -45,10 +44,9 @@ class KategoriController extends Controller
     {
         $request->validate([
             'ket_kategori' => 'required|string|max:30',
-            'deskripsi' => 'nullable|string',
         ]);
 
-        $kategori->update($request->only(['ket_kategori', 'deskripsi']));
+        $kategori->update($request->only(['ket_kategori']));
 
         return redirect()->route('admin.kategori.index')->with('success', 'Kategori berhasil diupdate');
     }

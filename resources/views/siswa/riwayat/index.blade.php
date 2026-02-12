@@ -17,10 +17,7 @@
                 @include('components.topbar')
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Riwayat Pengaduan</h1>
-                        <a href="{{ route('siswa.aspirasi.create') }}" class="btn btn-sm btn-primary">
-                            <i class="fas fa-plus"></i> Aspirasi Baru
-                        </a>
+                        <h1 class="h3 mb-0 text-gray-800">Riwayat Pengaduan Selesai</h1>
                     </div>
 
                     @if(session('success'))
@@ -34,14 +31,14 @@
 
                     @if($pengaduans->isEmpty())
                         <div class="alert alert-info" role="alert">
-                            <i class="fas fa-info-circle"></i> Anda belum memiliki pengaduan. 
-                            <a href="{{ route('siswa.aspirasi.create') }}" class="alert-link">Buat pengaduan baru</a>
+                            <i class="fas fa-info-circle"></i> Anda belum memiliki pengaduan yang selesai. 
+                            <a href="{{ route('siswa.aspirasi.create') }}" class="alert-link">Lihat aspirasi dalam proses</a>
                         </div>
                     @else
                         <div class="card shadow">
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary">
-                                    <i class="fas fa-list"></i> Daftar Pengaduan Anda
+                                    <i class="fas fa-list"></i> Daftar Pengaduan Selesai
                                 </h6>
                             </div>
                             <div class="card-body">
@@ -69,34 +66,13 @@
                                                     </td>
                                                     <td>{{ $pengaduan->created_at->format('d/m/Y H:i') }}</td>
                                                     <td>
-                                                        @if($pengaduan->status === 'Menunggu')
-                                                            <span class="badge badge-warning">Menunggu</span>
-                                                        @elseif($pengaduan->status === 'Proses')
-                                                            <span class="badge badge-info">Proses</span>
-                                                        @elseif($pengaduan->status === 'Selesai')
-                                                            <span class="badge badge-success">Selesai</span>
-                                                        @else
-                                                            <span class="badge badge-secondary">{{ $pengaduan->status }}</span>
-                                                        @endif
+                                                        <span class="badge badge-success">Selesai</span>
                                                     </td>
                                                     <td class="text-center">
-                                                        <div class="d-flex justify-content-center" style="gap: 15px;">
-                                                            <a href="{{ route('siswa.riwayat.show', $pengaduan->id_aspirasi) }}" 
-                                                               class="btn btn-sm btn-info" title="Lihat Detail">
-                                                                <i class="fas fa-eye"></i>
-                                                            </a>
-                                                            <a href="{{ route('siswa.aspirasi.edit', $pengaduan->id_aspirasi) }}" 
-                                                               class="btn btn-sm btn-warning" title="Edit">
-                                                                <i class="fas fa-edit"></i>
-                                                            </a>
-                                                            <form action="{{ route('siswa.aspirasi.destroy', $pengaduan->id_aspirasi) }}" method="POST" style="display:inline;">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-sm btn-danger" title="Hapus" onclick="return confirm('Apakah Anda yakin ingin menghapus aspirasi ini?')">
-                                                                    <i class="fas fa-trash"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
+                                                        <a href="{{ route('siswa.riwayat.show', $pengaduan->id_aspirasi) }}" 
+                                                           class="btn btn-sm btn-info" title="Lihat Detail">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             @endforeach

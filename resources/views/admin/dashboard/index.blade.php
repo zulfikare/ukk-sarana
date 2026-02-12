@@ -58,42 +58,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">
-                                        <i class="fas fa-chart-bar"></i> Status Pengaduan
-                                    </h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="text-center">
-                                                <strong>Menunggu</strong>
-                                                <p class="h4 text-warning font-weight-bold">{{ $pengaduanMenunggu }}</p>
-                                                <small class="text-muted">Belum Diproses</small>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="text-center">
-                                                <strong>Proses</strong>
-                                                <p class="h4 text-info font-weight-bold">{{ $pengaduanProses }}</p>
-                                                <small class="text-muted">Sedang Diproses</small>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="text-center">
-                                                <strong>Selesai</strong>
-                                                <p class="h4 text-success font-weight-bold">{{ $pengaduanSelesai }}</p>
-                                                <small class="text-muted">Sudah Ditangani</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </div>
             @include('components.footer')

@@ -43,9 +43,8 @@
                                 <table class="table table-hover table-bordered">
                                     <thead class="table-light">
                                         <tr>
-                                            <th style="width: 8%">No</th>
-                                            <th style="width: 27%">Keterangan Kategori</th>
-                                            <th style="width: 37%">Deskripsi</th>
+                                            <th style="width: 10%">No</th>
+                                            <th style="width: 70%">Kategori</th>
                                             <th style="width: 20%" class="text-center">Aksi</th>
                                         </tr>
                                     </thead>
@@ -54,7 +53,6 @@
                                             <tr>
                                                 <td class="text-center">{{ ($kategoris->currentPage() - 1) * $kategoris->perPage() + $key + 1 }}</td>
                                                 <td><strong>{{ $kategori->ket_kategori }}</strong></td>
-                                                <td>{{ $kategori->deskripsi ?? '-' }}</td>
                                                 <td class="text-center">
                                                     <a href="{{ route('admin.kategori.edit', $kategori->id_kategori) }}" class="btn btn-sm btn-warning">
                                                         <i class="fas fa-edit"></i> Edit
@@ -70,7 +68,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="4" class="text-center">Belum ada data kategori</td>
+                                                <td colspan="3" class="text-center">Belum ada data kategori</td>
                                             </tr>
                                         @endforelse
                                     </tbody>

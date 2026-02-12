@@ -29,6 +29,17 @@ class PengaduanController extends Controller
             $query->whereDate('created_at', $request->tanggal);
         }
 
+        if ($request->filled('bulan')) {
+            // Format: YYYY-MM (e.g., 2026-03)
+            $bulanParts = explode('-', $request->bulan);
+            if (count($bulanParts) == 2) {
+                $tahun = $bulanParts[0];
+                $bulan = $bulanParts[1];
+                $query->whereYear('created_at', $tahun)
+                      ->whereMonth('created_at', $bulan);
+            }
+        }
+
         $pengaduans = $query->paginate(10);
         $kategoris = Kategori::all();
         $siswas = \App\Models\Siswa::all();
@@ -57,7 +68,7 @@ class PengaduanController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('admin.pengaduan.show', $pengaduan->id_aspirasi)
+        return redirect()->route('admin.dashboard')
                        ->with('success', 'Status pengaduan berhasil diperbarui');
     }
 
@@ -71,7 +82,7 @@ class PengaduanController extends Controller
 
         $pengaduan->update($request->only(['id_kategori', 'status', 'feedback']));
 
-        return redirect()->route('admin.pengaduan.show', $pengaduan->id_aspirasi)
+        return redirect()->route('admin.dashboard')
                        ->with('success', 'Pengaduan berhasil diperbarui');
     }
 

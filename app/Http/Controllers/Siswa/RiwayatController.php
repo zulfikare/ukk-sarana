@@ -12,7 +12,9 @@ class RiwayatController extends Controller
     {
         $nis = session('nis');
         
+        // Only fetch aspirasi with status Selesai
         $pengaduans = Pengaduan::where('nis', $nis)
+                              ->where('status', 'Selesai')
                               ->with('kategori')
                               ->orderBy('created_at', 'desc')
                               ->paginate(10);

@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $id_aspirasi
  * @property string|null $nama
+ * @property string $nis
  * @property int $id_kategori
+ * @property string|null $lokasi
+ * @property string $ket
+ * @property string|null $gambar
  * @property string $status
  * @property int|null $feedback
  * @property \Illuminate\Support\Carbon $created_at

@@ -115,14 +115,16 @@
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">
-                                        <i class="fas fa-tasks"></i> Update Status
+                                        <i class="fas fa-tasks"></i> Respons Pengaduan
                                     </h6>
                                 </div>
                                 <div class="card-body">
                                     @if($pengaduan->status !== 'Selesai')
-                                        <form method="POST" action="{{ route('admin.pengaduan.updateStatus', $pengaduan->id_aspirasi) }}" class="mb-4">
+                                        <form method="POST" action="{{ route('admin.pengaduan.update', $pengaduan->id_aspirasi) }}">
                                             @csrf
                                             @method('PATCH')
+                                            <input type="hidden" name="id_kategori" value="{{ $pengaduan->id_kategori }}">
+                                            
                                             <div class="form-group mb-3">
                                                 <label for="status" class="form-label"><strong>Ubah Status</strong></label>
                                                 <select class="form-control" id="status" name="status" required>
@@ -138,39 +140,35 @@
                                                     @endif
                                                 </select>
                                             </div>
-                                            <button type="submit" class="btn btn-primary btn-sm">
-                                                <i class="fas fa-check"></i> Perbarui Status
+
+                                            <div class="form-group mb-3">
+                                                <label for="feedback" class="form-label"><strong>Feedback/Catatan</strong></label>
+                                                <textarea class="form-control @error('feedback') is-invalid @enderror" 
+                                                          id="feedback" name="feedback" rows="4" 
+                                                          placeholder="Berikan feedback atau catatan untuk pengaduan ini...">{{ old('feedback', $pengaduan->feedback) }}</textarea>
+                                                <small class="form-text text-muted d-block mt-2">Feedback akan ditampilkan kepada pelapor</small>
+                                                @error('feedback')
+                                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <button type="submit" class="btn btn-success btn-block">
+                                                <i class="fas fa-save"></i> Simpan Feedback
                                             </button>
                                         </form>
                                     @else
                                         <div class="alert alert-success" role="alert">
                                             <i class="fas fa-check-circle"></i> <strong>Pengaduan ini telah selesai ditangani</strong>
                                         </div>
+                                        @if($pengaduan->feedback)
+                                            <div class="mt-3">
+                                                <strong>Feedback yang diberikan:</strong>
+                                                <div class="bg-light p-3 rounded mt-2">
+                                                    <p>{{ nl2br(e($pengaduan->feedback)) }}</p>
+                                                </div>
+                                            </div>
+                                        @endif
                                     @endif
-
-                                    <hr class="my-3">
-
-                                    <h6 class="font-weight-bold text-primary mb-3">
-                                        <i class="fas fa-comment-dots"></i> Feedback/Catatan
-                                    </h6>
-                                    <form method="POST" action="{{ route('admin.pengaduan.update', $pengaduan->id_aspirasi) }}">
-                                        @csrf
-                                        @method('PATCH')
-                                        <input type="hidden" name="id_kategori" value="{{ $pengaduan->id_kategori }}">
-                                        <input type="hidden" name="status" value="{{ $pengaduan->status }}">
-                                        <div class="form-group">
-                                            <textarea class="form-control @error('feedback') is-invalid @enderror" 
-                                                      id="feedback" name="feedback" rows="4" 
-                                                      placeholder="Berikan feedback atau catatan untuk pengaduan ini...">{{ old('feedback', $pengaduan->feedback) }}</textarea>
-                                            <small class="form-text text-muted d-block mt-2">Feedback akan ditampilkan kepada pelapor</small>
-                                            @error('feedback')
-                                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                        <button type="submit" class="btn btn-success btn-sm">
-                                            <i class="fas fa-save"></i> Simpan Feedback
-                                        </button>
-                                    </form>
                                 </div>
                             </div>
                         </div>

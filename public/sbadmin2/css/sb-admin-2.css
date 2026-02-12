@@ -11,9 +11,9 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root {
-  --blue: #4e73df;
+  --blue: #9370DB; /* MediumPurple */
   --indigo: #6610f2;
-  --purple: #6f42c1;
+  --purple: #9370DB; /* MediumPurple */
   --pink: #e83e8c;
   --red: #e74a3b;
   --orange: #fd7e14;
@@ -24,7 +24,7 @@
   --white: #fff;
   --gray: #858796;
   --gray-dark: #5a5c69;
-  --primary: #4e73df;
+  --primary: #9370DB; /* MediumPurple */
   --secondary: #858796;
   --success: #1cc88a;
   --info: #36b9cc;
@@ -159,7 +159,7 @@ sup {
 }
 
 a {
-  color: #4e73df;
+  color: #9370DB; /* MediumPurple */
   text-decoration: none;
   background-color: transparent;
 }
@@ -2357,14 +2357,14 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #4e73df;
-  border-color: #4e73df;
+  background-color: #9370DB; /* MediumPurple */
+  border-color: #9370DB; /* MediumPurple */
 }
 
 .btn-primary:hover {
   color: #fff;
-  background-color: #2e59d9;
-  border-color: #2653d4;
+  background-color: #7a4fd1; /* darker MediumPurple */
+  border-color: #6b48bf; /* darker MediumPurple */
 }
 
 .btn-primary:focus, .btn-primary.focus {
@@ -2652,30 +2652,30 @@ fieldset:disabled a.btn {
 }
 
 .btn-outline-primary {
-  color: #4e73df;
-  border-color: #4e73df;
+  color: #9370DB; /* MediumPurple */
+  border-color: #9370DB; /* MediumPurple */
 }
 
 .btn-outline-primary:hover {
   color: #fff;
-  background-color: #4e73df;
-  border-color: #4e73df;
+  background-color: #9370DB; /* MediumPurple */
+  border-color: #9370DB; /* MediumPurple */
 }
 
 .btn-outline-primary:focus, .btn-outline-primary.focus {
-  box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(147, 112, 219, 0.5);
 }
 
 .btn-outline-primary.disabled, .btn-outline-primary:disabled {
-  color: #4e73df;
+  color: #9370DB; /* MediumPurple */
   background-color: transparent;
 }
 
 .btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active,
 .show > .btn-outline-primary.dropdown-toggle {
   color: #fff;
-  background-color: #4e73df;
-  border-color: #4e73df;
+  background-color: #9370DB; /* MediumPurple */
+  border-color: #9370DB; /* MediumPurple */
 }
 
 .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
@@ -2909,7 +2909,7 @@ fieldset:disabled a.btn {
 
 .btn-link {
   font-weight: 400;
-  color: #4e73df;
+  color: #9370DB; /* MediumPurple */
   text-decoration: none;
 }
 
